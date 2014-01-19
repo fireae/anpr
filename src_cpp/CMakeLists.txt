@@ -7,3 +7,6 @@ target_link_libraries(detect_plate ${OpenCV_LIBS})
 
 add_executable(parse_chars parse_chars.cc parse_chars_test.cc utility.cc)
 target_link_libraries(parse_chars ${OpenCV_LIBS})
+
+add_executable(judge_chars judge_chars.cc judge_chars_test.cc parse_chars.cc utility.cc)
+target_link_libraries(judge_chars ${OpenCV_LIBS})

@@ -1,7 +1,8 @@
 #include "utility.hpp"
 #include <stdarg.h>
+#include <stdio.h>
 
-void Log(const char *format, ...) {
+void Log_d(const char *format, ...) {
 #if DEBUG
     va_list args;
     va_start(args, format);

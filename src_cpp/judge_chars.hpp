@@ -18,7 +18,7 @@ class CharRecognizer {
   
   void Train(Mat train_data, Mat data_classes, int layer_num);
 
-  int Classify(Mat img);
+  char Classify(Mat img);
 
   bool LoadTrainData(Mat &train_data, Mat &data_classes);
 

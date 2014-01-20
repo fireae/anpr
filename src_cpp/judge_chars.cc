@@ -97,13 +97,10 @@ Mat GetFeatures(Mat in, int sizeData) {
 
 int CharRecognizer::num_chars = 30;
 const char CharRecognizer::chars[] = {
-  '0', '1', '2', '3', '4', '5',
-  '6', '7', '8', '9', 'A', 'B',
-  'C', 'D', 'E', 'F', 'G', 'H',
-  'J', 'K', 'L', 'M', 'N', 'P',
-  'R', 'S', 'T', 'V', 'W', 'X',
-  'Y', 'Z'
-};
+    '0','1','2','3','4','5','6','7','8','9',
+    'B', 'C', 'D', 'F', 'G', 'H', 'J', 'K',
+    'L', 'M', 'N', 'P', 'R', 'S', 'T', 'V',
+    'W', 'X', 'Y', 'Z'};
 
 CharRecognizer::CharRecognizer() {
   is_trained = false;
@@ -180,7 +177,7 @@ void CharRecognizer::Train(Mat train_data, Mat data_classes, int num_layer) {
   Log("train failed %d\n", is_trained);
 }
 
-int CharRecognizer::Classify(Mat img) {
+char CharRecognizer::Classify(Mat img) {
   Log("Classify begin \n");
 
   int result = -1;
@@ -198,5 +195,5 @@ int CharRecognizer::Classify(Mat img) {
     result = max_loc.x;
   }
 
-  return result;
+  return chars[result];
 }

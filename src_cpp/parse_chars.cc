@@ -106,60 +106,12 @@ vector<Mat> SegmentChars(Mat img) {
   int i = 0;
   for (i = 0; i < rect_chars.size(); i++) {
     Mat m = img(rect_chars[i]);
-    Mat img_rectify = RectifyImage(m);
+    Mat img_bin;
+    threshold(m, img_bin, 60, 255, CV_THRESH_BINARY_INV);
+    Mat img_rectify = RectifyImage(img_bin);
     img_chars.push_back(img_rectify);
   }
 
   return img_chars;
 }
 
-Mat ProjectHist(Mat img, int t) {
-  Mat feature;
-  int sz = (t)? img.rows : img.cols;
-  Mat hist=Mat::zeros(1, sz, CV_32F);
-  for (int i = 0; i < sz; i++) {
-    Mat data = (t)? img.row(i): img.col(i);
-    hist.at<float>(i) = countNonZero(data);
-  }
-
-  double min_v = 0.0;
-  double max_v = 0.0;
-  minMaxLoc(hist, &min_v, &max_v);
-  
-  if (max_v > 1.0) {
-    hist.convertTo(hist, -1, 1.0f/max_v, 0);
-  }
-
-  return feature;
-}
-
-Mat MakeFeatures(Mat img, int sz_data) {
-
-  Mat features;
-  Mat hrow = ProjectHist(img, 0);
-  Mat hcol = ProjectHist(img, 1);
-
-  // low data feature
-  Mat low_data;
-  resize(img, low_data, Size(sz_data, sz_data));
-
-  int num_cols = hrow.cols + hcol.cols + low_data.cols * low_data.cols;
-
-  features = Mat::zeros(1, num_cols, CV_32F);
-  int j = 0;
-  for (int i = 0; i < hrow.cols; i++) {
-    features.at<float>(j) = hrow.at<float>(i);
-    j++;
-  }
-  for (int i = 0; i < hcol.cols; i++) {
-    features.at<float>(j) = hcol.at<float>(i);
-    j++;
-  }
-  for (int k = 0; k < low_data.cols; k++) {
-    for (int m = 0; m < low_data.rows; m++) {
-      features.at<float>(j) = low_data.at<unsigned char>(k, m);
-    }
-  }
-    
-  return features;
-}

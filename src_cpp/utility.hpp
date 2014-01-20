@@ -21,6 +21,11 @@ void SaveImage(const char *name, Mat &img);
 /*
  * @brief: log
  */
-void Log(const char *format, ...);
+void Log_d(const char *format, ...);
+
+#define Log(fmt, args...) do { \
+    printf("%s ", __func__); \
+    Log_d(fmt, ##args); \
+} while(0)
 
 #endif //UTILITY_HPP

@@ -12,7 +12,7 @@ bool VerifySize(RotatedRect rr);
 /*
  *  @brief: preprocess to the image, blur->sobel-> threshold->mophologyex close
  */
-Mat PreprocessImage(Mat img_plate);
+Mat PreprocessPlate(Mat img_plate);
 
 /*
  * @brief: use floorFill for the candidate plate region

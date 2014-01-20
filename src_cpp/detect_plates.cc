@@ -21,7 +21,7 @@ bool VerifySize(RotatedRect rr) {
     return true;
 }
 
-Mat PreprocessImage(Mat img_plate) {
+Mat PreprocessPlate(Mat img_plate) {
     // convert to gray
     Mat img_gray;
     if (img_plate.channels() == 3) {
@@ -186,7 +186,7 @@ vector<RotatedRect> FindCandidatePlate(Mat img_plate_bin) {
 }
 void FindPlates(Mat img_plate, vector<Mat> &img_plate_regions, vector<Rect> &plate_regions) {
 
-    Mat img_plate_bin = PreprocessImage(img_plate);
+    Mat img_plate_bin = PreprocessPlate(img_plate);
     ShowImage("bin", img_plate_bin);
 
     vector<RotatedRect> candidate_regions = FindCandidatePlate(img_plate_bin);
